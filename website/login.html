@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>ShopDemo - Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <h1>Login</h1>
+
+    <a href="index.html">← Home</a>
+
+    <br><br>
+
+    <form onsubmit="login(event)">
+
+        <label>Email</label>
+        <br>
+
+        <input
+            id="email"
+            type="email"
+            placeholder="Enter email"
+        >
+
+        <br><br>
+
+        <label>Password</label>
+        <br>
+
+        <input
+            id="password"
+            type="password"
+            placeholder="Enter password"
+        >
+
+        <br><br>
+
+        <button type="submit">
+            Login
+        </button>
+
+    </form>
+
+    <p id="message"></p>
+
+    <script>
+
+        function login(event) {
+
+            event.preventDefault();
+
+            const email =
+                document.getElementById("email").value;
+
+            const password =
+                document.getElementById("password").value;
+
+            if (email && password) {
+
+                document.getElementById("message").innerText =
+                    "Login successful!";
+
+            } else {
+
+                document.getElementById("message").innerText =
+                    "Please fill all fields.";
+
+            }
+
+        }
+
+    </script>
+
+</body>
+
+</html>

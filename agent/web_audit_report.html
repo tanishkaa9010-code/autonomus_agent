@@ -1,0 +1,1915 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>WEB-AUDITOR Report</title>
+
+
+<style>
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+
+    background: #080d16;
+
+    color: #e8ecf1;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    line-height: 1.6;
+}
+
+.container {
+    width: 92%;
+
+    max-width: 1250px;
+
+    margin: 40px auto;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+header {
+    background: #0d1422;
+
+    border: 1px solid #243047;
+
+    border-radius: 18px;
+
+    padding: 30px;
+
+    margin-bottom: 25px;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+header h1 {
+    margin: 0;
+
+    font-size: 32px;
+
+    font-weight: 800;
+
+    color: #ffffff;
+}
+
+header p {
+    margin: 6px 0 0;
+
+    color: #8996a8;
+
+    font-size: 14px;
+}
+
+.target-info {
+    margin-top: 20px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(250px, 1fr));
+
+    gap: 12px;
+}
+
+.target-box {
+    background: #101827;
+
+    border: 1px solid #27344c;
+
+    border-radius: 10px;
+
+    padding: 13px 16px;
+}
+
+.target-title {
+    color: #687587;
+
+    font-size: 10px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.8px;
+
+    font-weight: 700;
+}
+
+.target-value {
+    margin-top: 4px;
+
+    color: #7fc1ff;
+
+    font-family: Consolas, monospace;
+
+    font-size: 13px;
+
+    word-break: break-all;
+}
+
+
+/* =========================================================
+   SCAN INFORMATION / METHOD
+========================================================= */
+
+.scan-method {
+    background: #0d1422;
+
+    border: 1px solid #243047;
+
+    border-radius: 14px;
+
+    padding: 24px;
+
+    margin-bottom: 25px;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.scan-method h2 {
+    margin: 0 0 16px;
+
+    font-size: 18px;
+
+    color: #ffffff;
+}
+
+.method-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(220px, 1fr));
+
+    gap: 12px;
+}
+
+.method-item {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 4px;
+
+    padding: 15px;
+
+    background: #101827;
+
+    border: 1px solid #27324a;
+
+    border-radius: 10px;
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.method-item:hover {
+    transform: translateY(-2px);
+
+    border-color: #52617c;
+}
+
+.method-label {
+    color: #687587;
+
+    font-size: 11px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.6px;
+
+    font-weight: 700;
+}
+
+.method-item strong {
+    color: #62b0ff;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+.dashboard {
+    margin-bottom: 25px;
+}
+
+.cards {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(165px, 1fr));
+
+    gap: 16px;
+
+    margin: 20px 0;
+}
+
+.card {
+    background: #101827;
+
+    border: 1px solid #27324a;
+
+    border-radius: 14px;
+
+    padding: 22px;
+
+    text-align: center;
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+
+    border-color: #52617c;
+
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.card h3 {
+    margin: 0 0 12px;
+
+    color: #8d99aa;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.8px;
+}
+
+.card .value {
+    color: #ffffff;
+
+    font-size: 30px;
+
+    font-weight: 800;
+
+    line-height: 1.2;
+}
+
+.score-total {
+    color: #6f7c8d;
+
+    font-size: 16px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   RISK SCORE
+========================================================= */
+
+.risk-label {
+    margin-top: 8px;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+}
+
+.risk-label.high {
+    color: #ff6b6b;
+}
+
+.risk-label.medium {
+    color: #ffb84d;
+}
+
+.risk-label.low {
+    color: #ffe066;
+}
+
+.risk-label.info {
+    color: #62b0ff;
+}
+
+.risk-bar {
+    width: 100%;
+
+    height: 8px;
+
+    margin: 14px 0 8px;
+
+    background: #202b3d;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+
+.risk-fill {
+    height: 100%;
+
+    background: #ff5c5c;
+
+    border-radius: 10px;
+
+    transition: width 0.5s ease;
+}
+
+
+/* =========================================================
+   SEVERITY COLORS
+========================================================= */
+
+.value.high {
+    color: #ff6b6b;
+}
+
+.value.medium {
+    color: #ffb84d;
+}
+
+.value.low {
+    color: #ffe066;
+}
+
+.value.info {
+    color: #62b0ff;
+}
+
+.high-card {
+    border-color: #4b242a;
+}
+
+.medium-card {
+    border-color: #4b391e;
+}
+
+.low-card {
+    border-color: #4b461e;
+}
+
+.info-card {
+    border-color: #243e5c;
+}
+
+
+/* =========================================================
+   SECTIONS
+========================================================= */
+
+section {
+    background: #0d1422;
+
+    border: 1px solid #243047;
+
+    border-radius: 14px;
+
+    padding: 25px;
+
+    margin: 22px 0;
+}
+
+section h2 {
+    margin-top: 0;
+
+    margin-bottom: 18px;
+
+    color: #ffffff;
+
+    font-size: 20px;
+}
+
+
+/* =========================================================
+   EXECUTIVE SUMMARY
+========================================================= */
+
+.executive-summary {
+    background: #101827;
+
+    border-left: 4px solid #62b0ff;
+
+    border-radius: 8px;
+
+    padding: 16px;
+
+    color: #b9c4d2;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   FINDING CONTROLS
+========================================================= */
+
+.finding-controls {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 14px;
+
+    margin: 20px 0 24px;
+}
+
+#findingSearch {
+    width: 100%;
+
+    padding: 13px 16px;
+
+    background: #101827;
+
+    color: #e8ecf1;
+
+    border: 1px solid #27324a;
+
+    border-radius: 10px;
+
+    font-size: 14px;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+#findingSearch::placeholder {
+    color: #687587;
+}
+
+#findingSearch:focus {
+    outline: none;
+
+    border-color: #62b0ff;
+
+    box-shadow:
+        0 0 0 3px rgba(98, 176, 255, 0.12);
+}
+
+
+/* =========================================================
+   FILTER BUTTONS
+========================================================= */
+
+.filter-buttons {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin: 0 !important;
+}
+
+.filter {
+    padding: 9px 18px;
+
+    background: #101827;
+
+    color: #9ba7b4;
+
+    border: 1px solid #2b3952;
+
+    border-radius: 8px;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.5px;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.filter:hover {
+    transform: translateY(-2px);
+
+    background: #182337;
+
+    color: #ffffff;
+
+    border-color: #52617c;
+
+    box-shadow:
+        0 5px 12px rgba(0, 0, 0, 0.3);
+}
+
+.filter:active {
+    transform: translateY(0);
+}
+
+.filter.active {
+    background: #1c3654;
+
+    color: #7fc1ff;
+
+    border-color: #62b0ff;
+
+    box-shadow:
+        0 0 10px rgba(98, 176, 255, 0.18);
+}
+
+.high-filter {
+    color: #ff8585;
+}
+
+.high-filter:hover,
+.high-filter.active {
+    background: #4b1e25;
+
+    color: #ff8585;
+
+    border-color: #ff5c5c;
+}
+
+.medium-filter {
+    color: #ffc46b;
+}
+
+.medium-filter:hover,
+.medium-filter.active {
+    background: #4b361c;
+
+    color: #ffc46b;
+
+    border-color: #ffb84d;
+}
+
+.low-filter {
+    color: #ffe46b;
+}
+
+.low-filter:hover,
+.low-filter.active {
+    background: #4a431c;
+
+    color: #ffe46b;
+
+    border-color: #ffd65c;
+}
+
+.info-filter {
+    color: #7fc1ff;
+}
+
+.info-filter:hover,
+.info-filter.active {
+    background: #1c3654;
+
+    color: #7fc1ff;
+
+    border-color: #62b0ff;
+}
+
+
+/* =========================================================
+   FINDINGS TABLE
+========================================================= */
+
+table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    background: #0d1422;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+
+thead {
+    background: #151f31;
+}
+
+th {
+    padding: 14px;
+
+    color: #9eabbc;
+
+    font-size: 11px;
+
+    text-align: left;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.6px;
+
+    border-bottom: 1px solid #27324a;
+}
+
+td {
+    padding: 14px;
+
+    color: #cbd3dd;
+
+    font-size: 13px;
+
+    border-bottom: 1px solid #1c2739;
+}
+
+tbody tr {
+    transition: background 0.15s ease;
+}
+
+tbody tr:hover {
+    background: #101827;
+}
+
+
+/* =========================================================
+   BADGES
+========================================================= */
+
+.badge {
+    display: inline-block;
+
+    padding: 4px 9px;
+
+    border-radius: 6px;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.5px;
+}
+
+.badge.high {
+    background: #4b1e25;
+
+    color: #ff8585;
+
+    border: 1px solid #7a3039;
+}
+
+.badge.medium {
+    background: #4b361c;
+
+    color: #ffc46b;
+
+    border: 1px solid #795722;
+}
+
+.badge.low {
+    background: #4a431c;
+
+    color: #ffe46b;
+
+    border: 1px solid #756b24;
+}
+
+.badge.info {
+    background: #1c3654;
+
+    color: #7fc1ff;
+
+    border: 1px solid #315b84;
+}
+
+
+/* =========================================================
+   TOP RISKS
+========================================================= */
+
+.risk-item {
+    background: #101827;
+
+    border: 1px solid #27324a;
+
+    border-left: 4px solid #ff5c5c;
+
+    border-radius: 10px;
+
+    padding: 16px;
+
+    margin-bottom: 12px;
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.risk-item:hover {
+    transform: translateX(3px);
+
+    border-color: #52617c;
+}
+
+.risk-item:last-child {
+    margin-bottom: 0;
+}
+
+.risk-item-header {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 8px;
+}
+
+.risk-page {
+    color: #7fc1ff;
+
+    font-family: Consolas, monospace;
+
+    font-size: 12px;
+
+    margin-bottom: 6px;
+}
+
+.risk-message {
+    color: #b9c4d2;
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   RECOMMENDATIONS
+========================================================= */
+
+ul {
+    padding-left: 22px;
+}
+
+li {
+    margin-bottom: 10px;
+
+    color: #cbd3dd;
+}
+
+li::marker {
+    color: #62b0ff;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer {
+    margin-top: 30px;
+
+    padding: 20px;
+
+    text-align: center;
+
+    color: #667386;
+
+    font-size: 12px;
+
+    border-top: 1px solid #202b3d;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width: 700px) {
+
+    .container {
+        width: 94%;
+
+        margin: 20px auto;
+    }
+
+    header {
+        padding: 22px;
+    }
+
+    header h1 {
+        font-size: 25px;
+    }
+
+    .cards {
+        grid-template-columns: 1fr 1fr;
+
+        gap: 10px;
+    }
+
+    .card {
+        padding: 16px;
+    }
+
+    .card .value {
+        font-size: 24px;
+    }
+
+    section {
+        padding: 18px;
+
+        overflow-x: auto;
+    }
+
+    table {
+        min-width: 650px;
+    }
+
+    .filter {
+        padding: 8px 13px;
+
+        font-size: 11px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+<!-- =====================================================
+     HEADER
+====================================================== -->
+
+<header>
+
+    <h1>
+        🛡️ WEB-AUDITOR
+    </h1>
+
+    <p>
+        Autonomous Web Security Audit Report
+    </p>
+
+    <div class="target-info">
+
+        <div class="target-box">
+
+            <div class="target-title">
+                Target URL
+            </div>
+
+            <div class="target-value">
+                http://127.0.0.1:5501/website/index.html
+            </div>
+
+        </div>
+
+
+        <div class="target-box">
+
+            <div class="target-title">
+                Scan Time
+            </div>
+
+            <div class="target-value">
+                22 Aug 2026, 10:10 PM
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     DASHBOARD
+====================================================== -->
+
+<div class="dashboard">
+
+
+<div class="cards">
+
+
+    <!-- RISK SCORE -->
+
+    <div class="card">
+
+        <h3>
+            Risk Score
+        </h3>
+
+        <div class="value">
+
+            70
+
+            <span class="score-total">
+                /100
+            </span>
+
+        </div>
+
+        <div class="risk-bar">
+
+            <div
+                class="risk-fill"
+                style="width: 70%"
+            ></div>
+
+        </div>
+
+        <div class="risk-label high">
+            HIGH
+        </div>
+
+    </div>
+
+
+    <!-- PAGES -->
+
+    <div class="card">
+
+        <h3>
+            Pages Scanned
+        </h3>
+
+        <div class="value">
+            4
+        </div>
+
+    </div>
+
+
+    <!-- FINDINGS -->
+
+    <div class="card">
+
+        <h3>
+            Total Findings
+        </h3>
+
+        <div class="value">
+            26
+        </div>
+
+    </div>
+
+
+    <!-- HIGH -->
+
+    <div class="card high-card">
+
+        <h3>
+            High
+        </h3>
+
+        <div class="value high">
+            2
+        </div>
+
+    </div>
+
+
+    <!-- MEDIUM -->
+
+    <div class="card medium-card">
+
+        <h3>
+            Medium
+        </h3>
+
+        <div class="value medium">
+            0
+        </div>
+
+    </div>
+
+
+    <!-- LOW -->
+
+    <div class="card low-card">
+
+        <h3>
+            Low
+        </h3>
+
+        <div class="value low">
+            22
+        </div>
+
+    </div>
+
+
+    <!-- INFO -->
+
+    <div class="card info-card">
+
+        <h3>
+            Info
+        </h3>
+
+        <div class="value info">
+            2
+        </div>
+
+    </div>
+
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     SCAN INFORMATION
+====================================================== -->
+
+<section class="scan-method">
+
+    <h2>
+        ⚙️ Scan Information
+    </h2>
+
+    <div class="method-grid">
+
+        <div class="method-item">
+            <span class="method-label">🤖 AI Agent</span>
+            <strong>Gemini</strong>
+        </div>
+
+        <div class="method-item">
+            <span class="method-label">🌐 Browser Runtime</span>
+            <strong>Playwright + WebCMD</strong>
+        </div>
+
+        <div class="method-item">
+            <span class="method-label">🛡️ Audit Type</span>
+            <strong>Passive & Interactive Security Scan</strong>
+        </div>
+
+        <div class="method-item">
+            <span class="method-label">🔎 Discovery</span>
+            <strong>Autonomous Page Discovery</strong>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     EXECUTIVE SUMMARY
+====================================================== -->
+
+<section>
+
+    <h2>
+        📋 Executive Summary
+    </h2>
+
+    <div class="executive-summary">
+
+        The website was audited across 4 pages and 26 security findings were identified. The overall risk level is HIGH with a score of 70/100. The assessment includes 2 high, 0 medium, 22 low, and 2 informational findings. Immediate attention is recommended for the identified high-severity issues.
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SEVERITY SUMMARY
+====================================================== -->
+
+<section>
+
+    <h2>
+        📊 Severity Summary
+    </h2>
+
+    <div class="summary">
+
+        <div class="summary-item">
+
+            🔴 HIGH
+
+            <span class="number" style="color:#ff6b6b;">
+                2
+            </span>
+
+        </div>
+
+
+        <div class="summary-item">
+
+            🟠 MEDIUM
+
+            <span class="number" style="color:#ffb84d;">
+                0
+            </span>
+
+        </div>
+
+
+        <div class="summary-item">
+
+            🟡 LOW
+
+            <span class="number" style="color:#ffe066;">
+                22
+            </span>
+
+        </div>
+
+
+        <div class="summary-item">
+
+            🔵 INFO
+
+            <span class="number" style="color:#62b0ff;">
+                2
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     TOP RISKS
+====================================================== -->
+
+<section>
+
+    <h2>
+        🚨 Top Priority Issues
+    </h2>
+
+    
+        <div class="risk-item">
+
+            <div class="risk-item-header">
+
+                <span class="badge high">
+                    HIGH
+                </span>
+
+                <strong>FORM</strong>
+
+            </div>
+
+            <div class="risk-page">
+                Page: http://127.0.0.1:5501/website/signup.html
+            </div>
+
+            <div class="risk-message">
+                Password field is present in a GET form.
+            </div>
+
+        </div>
+        
+        <div class="risk-item">
+
+            <div class="risk-item-header">
+
+                <span class="badge high">
+                    HIGH
+                </span>
+
+                <strong>FORM</strong>
+
+            </div>
+
+            <div class="risk-page">
+                Page: http://127.0.0.1:5501/website/login.html
+            </div>
+
+            <div class="risk-message">
+                Password field is present in a GET form.
+            </div>
+
+        </div>
+        
+        <div class="risk-item">
+
+            <div class="risk-item-header">
+
+                <span class="badge low">
+                    LOW
+                </span>
+
+                <strong>JAVASCRIPT</strong>
+
+            </div>
+
+            <div class="risk-page">
+                Page: http://127.0.0.1:5501/website/products.html
+            </div>
+
+            <div class="risk-message">
+                1 inline event handler(s) detected.
+            </div>
+
+        </div>
+        
+        <div class="risk-item">
+
+            <div class="risk-item-header">
+
+                <span class="badge low">
+                    LOW
+                </span>
+
+                <strong>SECURITY_HEADER</strong>
+
+            </div>
+
+            <div class="risk-page">
+                Page: http://127.0.0.1:5501/website/products.html
+            </div>
+
+            <div class="risk-message">
+                Missing security header: Content-Security-Policy
+            </div>
+
+        </div>
+        
+        <div class="risk-item">
+
+            <div class="risk-item-header">
+
+                <span class="badge low">
+                    LOW
+                </span>
+
+                <strong>SECURITY_HEADER</strong>
+
+            </div>
+
+            <div class="risk-page">
+                Page: http://127.0.0.1:5501/website/products.html
+            </div>
+
+            <div class="risk-message">
+                Missing security header: X-Frame-Options
+            </div>
+
+        </div>
+        
+
+</section>
+
+
+<!-- =====================================================
+     FINDINGS
+====================================================== -->
+
+<section>
+
+    <h2>
+        🚨 Security Findings
+    </h2>
+
+
+    <div class="finding-controls">
+
+
+        <input
+            type="text"
+            id="findingSearch"
+            placeholder="🔍 Search findings..."
+            onkeyup="filterFindings()"
+        >
+
+
+        <div class="filter-buttons">
+
+
+            <button
+                onclick="setSeverity('ALL', this)"
+                class="filter active"
+            >
+                ALL
+            </button>
+
+
+            <button
+                onclick="setSeverity('HIGH', this)"
+                class="filter high-filter"
+            >
+                HIGH
+            </button>
+
+
+            <button
+                onclick="setSeverity('MEDIUM', this)"
+                class="filter medium-filter"
+            >
+                MEDIUM
+            </button>
+
+
+            <button
+                onclick="setSeverity('LOW', this)"
+                class="filter low-filter"
+            >
+                LOW
+            </button>
+
+
+            <button
+                onclick="setSeverity('INFO', this)"
+                class="filter info-filter"
+            >
+                INFO
+            </button>
+
+
+        </div>
+
+    </div>
+
+
+    <table id="findingsTable">
+
+        <thead>
+
+            <tr>
+
+                <th>
+                    Severity
+                </th>
+
+                <th>
+                    Type
+                </th>
+
+                <th>
+                    Page
+                </th>
+
+                <th>
+                    Description
+                </th>
+
+            </tr>
+
+        </thead>
+
+
+        <tbody>
+
+            
+        <tr>
+            <td>
+                <span class="badge low">
+                    LOW
+                </span>
+            </td>
+
+            <td>JAVASCRIPT</td>
+
+            <td>http://127.0.0.1:5501/website/products.html</td>
+
+            <td>1 inline event handler(s) detected.</td>
+        </tr>
+        
+        <tr>
+            <td>
+                <span class="badge low">
+                    LOW
+                </span>
+            </td>
+
+            <td>SECURITY_HEADER</td>
+
+            <td>http://127.0.0.1:5501/website/products.html</td>
+
+            <td>Missing security header: Content-Security-Policy</td>
+        </tr>
+        
+        <tr>
+            <td>
+                <span class="badge low">
+                    LOW
+                </span>
+            </td>
+
+            <td>SECURITY_HEADER</td>
+
+            <td>http://127.0.0.1:5501/website/products.html</td>
+
+            <td>Missing security header: X-Frame-Options</td>
+        </tr>
+        
+        <tr>
+            <td>
+                <span class="badge low">
+                    LOW
+                </span>
+            </td>
+
+            <td>SECURITY_HEADER</td>
+
+            <td>http://127.0.0.1:5501/website/products.html</td>
+
+            <td>Missing security header: X-Content-Type-Options</td>
+        </tr>
+        
+        <tr>
+            <td>
+                <span class="badge low">
+                    LOW
+                </span>
+            </td>
+
+            <td>SECURITY_HEADER</td>
+
+            <td>http://127.0.0.1:5501/website/products.html</td>
+
+            <td>Missing security header: Referrer-Policy</td>
+        </tr>
+        
+        <tr>
+            <td>
+                <span class="badge high">
+                    HIGH
+                </span>
+            </td>
+
+            <td>FORM</td>
+
+            <td>http://127.0.0.1:5501/website/signup.html</td>
+
+            <td>Password field is present in a GET form.</td>
+        </tr>
+        
+        <tr>
+            <td>
+                <span class="badge info">
+                    INFO
+                </span>
+            </td>
+
+            <td>PASSWORD_FIELD</td>
+
+            <td>http://127.0.0.1:5501/website/signup.html</td>
+
+            <td>Password input detected.</td>
+        </tr>
+        
+        <tr>
+            <td>
+                <span class="badge low">
+                    LOW
+                </span>
+            </td>
+
+            <td>PASSWORD_FIELD</td>
+
+            <td>http://127.0.0.1:5501/website/signup.html</td>
+
+            <td>Password field has no autocomplete attribute.</td>
+        </tr>
+        
+        <tr>
+            <td>
+                <span class="badge low">
+                    LOW
+                </span>
+            </td>
+
+            <td>JAVASCRIPT</td>
+
+            <td>http://127.0.0.1:5501/website/signup.html</td>
+
+            <td>1 inline event handler(s) detected.</td>
+        </tr>
+        
+        <tr>
+            <td>
+                <span class="badge low">
+                    LOW
+                </span>
+            </td>
+
+            <td>SECURITY_HEADER</td>
+
+            <td>http://127.0.0.1:5501/website/signup.html</td>
+
+            <td>Missing security header: Content-Security-Policy</td>
+        </tr>
+        
+        <tr>
+            <td>
+                <span class="badge low">
+                    LOW
+                </span>
+            </td>
+
+            <td>SECURITY_HEADER</td>
+
+            <td>http://127.0.0.1:5501/website/signup.html</td>
+
+            <td>Missing security header: X-Frame-Options</td>
+        </tr>
+        
+        <tr>
+            <td>
+                <span class="badge low">
+                    LOW
+                </span>
+            </td>
+
+            <td>SECURITY_HEADER</td>
+
+            <td>http://127.0.0.1:5501/website/signup.html</td>
+
+            <td>Missing security header: X-Content-Type-Options</td>
+        </tr>
+        
+        <tr>
+            <td>
+                <span class="badge low">
+                    LOW
+                </span>
+            </td>
+
+            <td>SECURITY_HEADER</td>
+
+            <td>http://127.0.0.1:5501/website/signup.html</td>
+
+            <td>Missing security header: Referrer-Policy</td>
+        </tr>
+        
+        <tr>
+            <td>
+                <span class="badge high">
+                    HIGH
+                </span>
+            </td>
+
+            <td>FORM</td>
+
+            <td>http://127.0.0.1:5501/website/login.html</td>
+
+            <td>Password field is present in a GET form.</td>
+        </tr>
+        
+        <tr>
+            <td>
+                <span class="badge info">
+                    INFO
+                </span>
+            </td>
+
+            <td>PASSWORD_FIELD</td>
+
+            <td>http://127.0.0.1:5501/website/login.html</td>
+
+            <td>Password input detected.</td>
+        </tr>
+        
+        <tr>
+            <td>
+                <span class="badge low">
+                    LOW
+                </span>
+            </td>
+
+            <td>PASSWORD_FIELD</td>
+
+            <td>http://127.0.0.1:5501/website/login.html</td>
+
+            <td>Password field has no autocomplete attribute.</td>
+        </tr>
+        
+        <tr>
+            <td>
+                <span class="badge low">
+                    LOW
+                </span>
+            </td>
+
+            <td>JAVASCRIPT</td>
+
+            <td>http://127.0.0.1:5501/website/login.html</td>
+
+            <td>1 inline event handler(s) detected.</td>
+        </tr>
+        
+        <tr>
+            <td>
+                <span class="badge low">
+                    LOW
+                </span>
+            </td>
+
+            <td>SECURITY_HEADER</td>
+
+            <td>http://127.0.0.1:5501/website/login.html</td>
+
+            <td>Missing security header: Content-Security-Policy</td>
+        </tr>
+        
+        <tr>
+            <td>
+                <span class="badge low">
+                    LOW
+                </span>
+            </td>
+
+            <td>SECURITY_HEADER</td>
+
+            <td>http://127.0.0.1:5501/website/login.html</td>
+
+            <td>Missing security header: X-Frame-Options</td>
+        </tr>
+        
+        <tr>
+            <td>
+                <span class="badge low">
+                    LOW
+                </span>
+            </td>
+
+            <td>SECURITY_HEADER</td>
+
+            <td>http://127.0.0.1:5501/website/login.html</td>
+
+            <td>Missing security header: X-Content-Type-Options</td>
+        </tr>
+        
+        <tr>
+            <td>
+                <span class="badge low">
+                    LOW
+                </span>
+            </td>
+
+            <td>SECURITY_HEADER</td>
+
+            <td>http://127.0.0.1:5501/website/login.html</td>
+
+            <td>Missing security header: Referrer-Policy</td>
+        </tr>
+        
+        <tr>
+            <td>
+                <span class="badge low">
+                    LOW
+                </span>
+            </td>
+
+            <td>JAVASCRIPT</td>
+
+            <td>http://127.0.0.1:5501/website/index.html</td>
+
+            <td>1 inline event handler(s) detected.</td>
+        </tr>
+        
+        <tr>
+            <td>
+                <span class="badge low">
+                    LOW
+                </span>
+            </td>
+
+            <td>SECURITY_HEADER</td>
+
+            <td>http://127.0.0.1:5501/website/index.html</td>
+
+            <td>Missing security header: Content-Security-Policy</td>
+        </tr>
+        
+        <tr>
+            <td>
+                <span class="badge low">
+                    LOW
+                </span>
+            </td>
+
+            <td>SECURITY_HEADER</td>
+
+            <td>http://127.0.0.1:5501/website/index.html</td>
+
+            <td>Missing security header: X-Frame-Options</td>
+        </tr>
+        
+        <tr>
+            <td>
+                <span class="badge low">
+                    LOW
+                </span>
+            </td>
+
+            <td>SECURITY_HEADER</td>
+
+            <td>http://127.0.0.1:5501/website/index.html</td>
+
+            <td>Missing security header: X-Content-Type-Options</td>
+        </tr>
+        
+        <tr>
+            <td>
+                <span class="badge low">
+                    LOW
+                </span>
+            </td>
+
+            <td>SECURITY_HEADER</td>
+
+            <td>http://127.0.0.1:5501/website/index.html</td>
+
+            <td>Missing security header: Referrer-Policy</td>
+        </tr>
+        
+
+        </tbody>
+
+    </table>
+
+</section>
+
+
+<!-- =====================================================
+     RECOMMENDATIONS
+====================================================== -->
+
+<section>
+
+    <h2>
+        💡 Recommendations
+    </h2>
+
+    <ul>
+
+        
+        <li>
+            Move inline JavaScript into controlled external scripts and apply a restrictive CSP where possible.
+        </li>
+        
+        <li>
+            Add a Content-Security-Policy header to restrict unsafe script and resource execution.
+        </li>
+        
+        <li>
+            Add X-Frame-Options to reduce clickjacking risk.
+        </li>
+        
+        <li>
+            Add X-Content-Type-Options: nosniff.
+        </li>
+        
+        <li>
+            Add an explicit Referrer-Policy.
+        </li>
+        
+        <li>
+            Use POST instead of GET when submitting passwords or other sensitive credentials.
+        </li>
+        
+        <li>
+            Configure password fields with an appropriate autocomplete attribute.
+        </li>
+        
+
+    </ul>
+
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+====================================================== -->
+
+<div class="footer">
+
+    Generated by WEB-AUDITOR
+
+</div>
+
+
+</div>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+====================================================== -->
+
+<script>
+
+let selectedSeverity = "ALL";
+
+
+function setSeverity(severity, clickedButton) {
+
+    selectedSeverity = severity;
+
+
+    document
+        .querySelectorAll(".filter")
+        .forEach(function(button) {
+
+            button.classList.remove("active");
+
+        });
+
+
+    clickedButton.classList.add("active");
+
+
+    filterFindings();
+
+}
+
+
+function filterFindings() {
+
+    const search =
+        document
+            .getElementById("findingSearch")
+            .value
+            .toLowerCase();
+
+
+    const rows =
+        document.querySelectorAll(
+            "#findingsTable tbody tr"
+        );
+
+
+    rows.forEach(function(row) {
+
+        const text =
+            row.innerText.toLowerCase();
+
+
+        const badge =
+            row.querySelector(".badge");
+
+
+        const severity =
+            badge
+                ? badge.innerText
+                    .trim()
+                    .toUpperCase()
+                : "";
+
+
+        const matchesSeverity =
+            selectedSeverity === "ALL" ||
+            severity === selectedSeverity;
+
+
+        const matchesSearch =
+            text.includes(search);
+
+
+        row.style.display =
+            matchesSeverity && matchesSearch
+                ? ""
+                : "none";
+
+    });
+
+}
+
+</script>
+
+
+</body>
+
+</html>
+

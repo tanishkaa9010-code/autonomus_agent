@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>ShopDemo - Products</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <h1>Products</h1>
+
+    <a href="index.html">← Home</a>
+
+    <hr>
+
+    <h2>Gaming Laptop</h2>
+
+    <p>Price: ₹65,000</p>
+
+    <p>RAM: 16 GB</p>
+
+    <p>Storage: 512 GB SSD</p>
+
+    <button onclick="addToCart()">
+        Add to Cart
+    </button>
+
+    <p id="message"></p>
+
+    <script>
+
+        function addToCart() {
+
+            document.getElementById("message").innerText =
+                "Product added to cart successfully!";
+
+        }
+
+    </script>
+
+</body>
+
+</html>

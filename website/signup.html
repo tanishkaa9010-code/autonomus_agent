@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>ShopDemo - Sign Up</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <h1>Create Account</h1>
+
+    <a href="index.html">← Home</a>
+
+    <br><br>
+
+    <form onsubmit="signup(event)">
+
+        <label>Name</label>
+        <br>
+
+        <input
+            id="name"
+            placeholder="Enter your name"
+        >
+
+        <br><br>
+
+        <label>Email</label>
+        <br>
+
+        <input
+            id="email"
+            type="email"
+            placeholder="Enter email"
+        >
+
+        <br><br>
+
+        <label>Password</label>
+        <br>
+
+        <input
+            id="password"
+            type="password"
+            placeholder="Create password"
+        >
+
+        <br><br>
+
+        <button type="submit">
+            Create Account
+        </button>
+
+    </form>
+
+    <p id="message"></p>
+
+    <script>
+
+        function signup(event) {
+
+            event.preventDefault();
+
+            const name =
+                document.getElementById("name").value;
+
+            const email =
+                document.getElementById("email").value;
+
+            const password =
+                document.getElementById("password").value;
+
+            if (!name || !email || !password) {
+
+                document.getElementById("message").innerText =
+                    "Please fill all fields.";
+
+                return;
+
+            }
+
+            document.getElementById("message").innerText =
+                "Account created successfully!";
+
+        }
+
+    </script>
+
+</body>
+
+</html>
